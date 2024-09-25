@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Add Customer</h5>
+        <form (submit)="onSubmit()" [formGroup]="customerForm">
+            <div class="form-group mt-3">
+                <label>Title*</label>
+                <input type="text" class="form-control" placeholder="Enter Title" formControlName="title">
+                <ng-content *ngIf="isSubmitted">
+                    <small class="text-danger" *ngIf="customerForm.get('title')?.hasError('required')">Enter Title</small>
+                </ng-content>
+            </div>
+            <div class="form-group mt-3">
+                <label>Email*</label>
+                <input type="email" class="form-control" placeholder="Enter Email" formControlName="email">
+                <ng-content *ngIf="isSubmitted">
+                    <small class="text-danger" *ngIf="customerForm.get('email')?.hasError('required')">Enter Email</small>
+                    <small class="text-danger" *ngIf="customerForm.get('email')?.hasError('pattern')">Invalid Email</small>
+                </ng-content>
+            </div>
+            <div class="form-group mt-3">
+                <label>Region*</label>
+                <ngx-select [items]="regions" [placeholder]="'Select Region'" formControlName="region" (selectionChanges)="onRegionChange($event)"></ngx-select>
+                <ng-content *ngIf="isSubmitted">
+                    <small class="text-danger" *ngIf="customerForm.get('region')?.hasError('required')">Select Region</small>
+                </ng-content>
+            </div>
+            <div class="form-group mt-3">
+                <label>Contries*</label>
+                <ngx-select [items]="contries" [placeholder]="'Select Country'" formControlName="contry" ></ngx-select>
+                <ng-content *ngIf="isSubmitted">
+                    <small class="text-danger" *ngIf="customerForm.get('contry')?.hasError('required')">Select Country</small>
+                </ng-content>
+            </div>
+            <div class="form-group mt-3 d-flex justify-content-around">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" (click)="onClose()" class="btn btn-primary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

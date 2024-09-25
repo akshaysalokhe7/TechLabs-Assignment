@@ -1,0 +1,57 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Add Pin</h5>
+        <form (submit)="onSubmit()" [formGroup]="pinForm">
+            <div class="form-group mt-3">
+                <label>Title*</label>
+                <input type="text" class="form-control" placeholder="Enter Title" formControlName="title">
+                <ng-content *ngIf="isSubmitted">
+                    <small class="text-danger" *ngIf="pinForm.get('title')?.hasError('required')">Enter Title</small>
+                </ng-content>
+            </div>
+            <div class="form-group mt-3">
+                <label>Select Image*</label>
+                <div ng2FileDrop class="my-drop-zone" role='button' 
+                [uploader]="uploader"
+                (onFileDrop)="fileDrop($event)" 
+                (click)="uploadImage.click()"
+                >{{fileName}}</div>
+                <ng-content *ngIf="isSubmitted">
+                    <small class="text-danger" *ngIf="pinForm.get('image')?.hasError('required')">Upload Image</small>
+                </ng-content>
+            </div>
+            <input #uploadImage 
+                type="file" accept="{{fileType.join(',')}}"
+                (change)="fileSelect($event);" 
+                style="display:none"
+            />
+            <div class="form-group mt-3">
+                <label>Select Collaboratory*</label>
+                <ngx-select [items]="customerData" [optionTextField]="'title'" [placeholder]="'Select Collaboratory'" formControlName="collaboratory" [multiple]="true"></ngx-select>
+                <ng-content *ngIf="isSubmitted">
+                    <small class="text-danger" *ngIf="pinForm.get('collaboratory')?.hasError('required')">Select Collaboratory</small>
+                </ng-content>
+            </div>
+            <div class="form-group mt-3 d-flex align-items-center">
+                <label>Privacy*</label>&nbsp;&nbsp;&nbsp;
+                <div class="form-check p-3">
+                    <input class="form-check-input" type="radio" value="Private" formControlName="privacy">
+                    <label class="form-check-label">
+                      Private
+                    </label>
+                </div>
+                <div class="form-check p-3">
+                    <input class="form-check-input" type="radio" value="Public" formControlName="privacy">
+                    <label class="form-check-label">
+                      Public
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group mt-3 d-flex justify-content-around">
+                <button type="submit" [disabled]="inProcess" class="btn btn-primary">Submit</button>
+                <button type="button" (click)="onClose()" class="btn btn-primary">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

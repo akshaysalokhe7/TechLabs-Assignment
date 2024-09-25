@@ -1,0 +1,29 @@
+<div class="d-flex p-3 card justify-content-between flex-row align-items-center">
+  <h3>List of Pins</h3>
+  <div class="d-flex flex-wrap justify-content-end">
+    <button class="btn btn-primary m-1" (click)="addCustomer()">+ Add Customer</button>
+    <button class="btn btn-primary m-1" (click)="addPin()">+ Add Pin</button>
+  </div>
+</div>
+<div class="card mt-3">
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center">Title</th>
+          <th scope="col" class="text-center">Image</th>
+          <th scope="col" class="text-center">Collaboratory</th>
+          <th scope="col" class="text-center">Privacy</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pin of pins">
+          <th class="align-middle text-center">{{pin.title}}</th>
+          <td class="align-middle text-center"><img class="img-view" src="{{pin.image}}"/></td>
+          <td class="align-middle text-center"><div *ngFor="let customer of pin.collaboratory">{{customer}}</div></td>
+          <td class="align-middle text-center">{{pin.privacy}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
